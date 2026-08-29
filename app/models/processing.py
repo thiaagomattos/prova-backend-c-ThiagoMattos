@@ -12,7 +12,7 @@ class ProcessingHistory(Base):
 
     mission_id = Column(
         Integer,
-        ForeignKey("missions.id"),
+        ForeignKey("missions.id", ondelete="CASCADE"),
         nullable=False
     )
 
