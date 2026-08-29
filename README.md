@@ -1037,6 +1037,8 @@ Perfil: `linkedin.com/in/thiago-mattos-silveira`
 
 ### Projeto Localizador
 
+https://github.com/thiaagomattos/projeto-localizador
+
 Projeto desenvolvido utilizando crawler para consulta e localização de endereços através de CEP.
 
 O projeto demonstra experiência com:
@@ -1046,6 +1048,10 @@ O projeto demonstra experiência com:
 * Consumo de páginas web;
 * Processamento de dados;
 * Organização de uma aplicação backend.
+
+Esse projeto foi desenvolvido para um trabalho da faculdade, onde foi pedido uma aplicação com Frontend e Backend, com utlização de APIs de consulta.
+Nesse projeto eu faria algumas coisas diferentes, como a implementação de deploy com Docker facilitando o build da aplicação e algumas mudanças de segurança,
+como padrões de autenticação e melhores técnicas de segurança.
 
 ---
 
