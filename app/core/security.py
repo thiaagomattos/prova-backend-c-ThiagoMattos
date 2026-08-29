@@ -1,9 +1,12 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-SECRET_KEY = "DSDAWDWAP33##DD__AAAAJJ2ddkia@@34aa"
-ALGORITHM = "HS256"
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
 
 security = HTTPBearer()
 
