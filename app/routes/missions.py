@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.orm import Session
+from app.core.security import verify_token
 
 from app.db.database import get_db
 from app.models.mission import Mission
@@ -8,7 +9,8 @@ from typing import List
 
 router = APIRouter(
     prefix="/missions",
-    tags=["Missions"]
+    tags=["Missions"],
+    dependencies=[Depends(verify_token)]
 )
 
 @router.post("/", response_model=MissionResponse, status_code=status.HTTP_201_CREATED)
