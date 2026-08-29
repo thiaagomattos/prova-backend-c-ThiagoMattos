@@ -1,9 +1,6 @@
 from datetime import datetime
-
 from sqlalchemy import Column, DateTime, Float, Integer, String
-
 from app.db.database import Base
-
 
 class Mission(Base):
     __tablename__ = "missions"

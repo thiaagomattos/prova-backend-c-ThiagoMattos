@@ -10,7 +10,6 @@ ALGORITHM = os.getenv("ALGORITHM")
 
 security = HTTPBearer()
 
-
 def verify_token(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):

@@ -1,4 +1,9 @@
 .env
+*.db
 __pycache__/
-*.pyc
-data/*.db
+*.py[cod]
+*.pt
+.vscode/
+.idea/
+venv/
+.venv/
