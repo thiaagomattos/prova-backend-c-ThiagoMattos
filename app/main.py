@@ -1,12 +1,10 @@
 from fastapi import FastAPI
 
-from db.database import Base, engine
+from app.routes import health, missions
+from app.db.database import Base, engine
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Challenge IPM API")
 
-Base.metadata.create_all(bind=engine)
-
-
-@app.get("/health")
-def health() -> dict[str, str]:
-    return {"status": "ok"}
+app.include_router(health.router)
+app.include_router(missions.router)

@@ -1,9 +1,4 @@
-__pycache__/
-*.py[cod]
-.venv/
-venv/
 .env
-db/*.db
-db/*.db-journal
-.idea/
-.vscode/
+__pycache__/
+*.pyc
+data/*.db

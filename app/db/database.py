@@ -1,22 +1,16 @@
 from collections.abc import Generator
-from pathlib import Path
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+from sqlalchemy.orm import declarative_base, Session, sessionmaker
 
-DB_DIR = Path(__file__).resolve().parent
-DB_PATH = DB_DIR / "app.db"
-
+DATABASE_URL = "sqlite:///./data/missions.db"
 engine = create_engine(
-    f"sqlite:///{DB_PATH}",
+    DATABASE_URL,
     connect_args={"check_same_thread": False},
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-
-class Base(DeclarativeBase):
-    pass
-
+Base = declarative_base()
 
 def get_db() -> Generator[Session, None, None]:
     db = SessionLocal()
