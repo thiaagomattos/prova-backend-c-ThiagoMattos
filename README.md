@@ -16,6 +16,7 @@ A aplicação foi desenvolvida em **Python com FastAPI**, utilizando **PostgreSQ
 * [Funcionalidades](#funcionalidades)
 * [Modelo de dados](#modelo-de-dados)
 * [Como executar o projeto](#como-executar-o-projeto)
+* [Testes](#testes)
 * [API](#api)
 * [Autenticação](#autenticação)
 * [Integração com IA](#integração-com-ia)
@@ -82,6 +83,8 @@ A aplicação também foi preparada para execução utilizando Docker Compose, c
 * GitHub
 * Postman
 * Swagger / OpenAPI
+* pytest
+* pytest-cov
 
 ---
 
@@ -317,6 +320,44 @@ http://localhost:8000/health
 ```bash
 docker compose down
 ```
+
+---
+
+# Testes
+
+O projeto possui uma suíte de testes automatizados com **pytest**. Os testes cobrem autenticação JWT, CRUD de missões, processamento de imagens e o `AIService`.
+
+A suíte utiliza:
+
+* **SQLite em memória** apenas nos testes, isolado do PostgreSQL configurado em `DATABASE_URL`;
+* **FastAPI TestClient** para os endpoints;
+* **mocks** para o YOLO, evitando download do modelo, GPU e inferência real;
+* o mesmo mecanismo JWT da aplicação, via fixture `auth_headers`.
+
+Os testes **não** dependem de Redis, Docker ou PostgreSQL em execução.
+
+## Como executar
+
+Na raiz do projeto, com as dependências instaladas (`pip install -r requirements.txt`):
+
+```bash
+pytest
+```
+
+Cobertura:
+
+```bash
+pytest --cov=app --cov-report=term-missing
+```
+
+## O que é testado
+
+* Login e acesso a rotas protegidas (sem token, token válido, token inválido ou expirado);
+* CRUD de missões, incluindo 404 e validação Pydantic;
+* Processamento de imagem (sucesso, missão inexistente, histórico, tempo de inferência, versão do modelo e erro de inferência);
+* Formato das predições do `AIService` e carregamento único do modelo.
+
+A API atual **não** possui registro de usuários. O login emite JWT sem persistir credenciais; a checagem hardcoded de usuário/senha permanece comentada no código. Os testes refletem esse comportamento.
 
 Para remover também os volumes persistentes:
 
@@ -1016,6 +1057,14 @@ Durante essa etapa foram estudados conceitos como:
 A IA também foi utilizada como ferramenta de troubleshooting durante o desenvolvimento, principalmente para interpretar mensagens de erro e sugerir caminhos de investigação.
 
 Os comandos e alterações sugeridos foram executados e validados no ambiente local antes de serem incorporados ao projeto.
+
+### Testes automatizados
+
+Para a implementação dos testes automatizados, utilizei IA como apoio por ser um tema com o qual ainda não possuía experiência prática.
+
+A IA foi utilizada para auxiliar na definição da estrutura dos testes, utilização do `pytest`, criação de fixtures e mocks e identificação dos principais cenários a serem testados.
+
+A implementação foi revisada, executada e validada por mim. Ao final, foram desenvolvidos 28 testes automatizados, com 97% de cobertura do código.
 
 ---
 
